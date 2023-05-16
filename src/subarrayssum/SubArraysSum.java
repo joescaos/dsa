@@ -34,6 +34,19 @@ public class SubArraysSum {
         return largestSum;
     }
 
+    public static int prefixSumOptimized(int[] arr) {
+        int[] dp = new int[arr.length];
+        dp[0] = arr[0];
+        int largestSum = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            dp[i] = Math.max(dp[i-1] + arr[i], arr[i]);
+            largestSum = Math.max(largestSum, dp[i]);
+        }
+
+        return largestSum;
+    }
+
     public static void main(String[] args) {
         int[] arr = {5,6,7,8,9,10,11,12};
         long startTime = System.nanoTime();
@@ -44,5 +57,10 @@ public class SubArraysSum {
         System.out.println(prefixSum(arr));
         long finalTime2 = System.nanoTime() - startTime2;
         System.out.println("Time of execution prefix sum: " + finalTime2);
+
+        long startTime3 = System.nanoTime();
+        System.out.println(prefixSumOptimized(arr));
+        long finalTime3 = System.nanoTime() - startTime3;
+        System.out.println("Time of execution prefix sum: " + finalTime3);
     }
 }
